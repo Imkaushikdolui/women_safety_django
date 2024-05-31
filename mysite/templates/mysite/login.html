@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+{% extends "mysite/common.html" %}
+{% load static %}
+
+<html lang="en">
+<head>
+    <title>Rescue | Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .register-page {
+            margin-top: 7em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .register-page-img {
+            width: 100%;
+            height: auto;
+        }
+
+        .register-page-title {
+            font-size: 2.75rem;
+            font-family: "Bebas Neue", sans-serif;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .register-page-text {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .form-style {
+            font-size: 1.15rem;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-size: 1.75rem;
+            color: #6C63FF;
+            margin: 1em 0 0.5em 0;
+            font-weight: 500;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.5em;
+            margin: 0.5em 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input[type="submit"] {
+            background-color: #FFF;
+            color: #6C63FF;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 0.5em 1.5em;
+            margin: 1em 0;
+            cursor: pointer;
+            border: 2px solid #6C63FF;
+            border-radius: 5em;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            color: #FFF;
+            background-color: #6C63FF;
+            cursor: pointer;
+        }
+
+        .register-sign-in {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-sign-in a {
+            text-decoration: none;
+            color: #6C63FF;
+            transition: all 0.5s ease-in-out;
+            margin: 0 auto;
+        }
+
+        .register-sign-in a:hover {
+            text-decoration: underline;
+        }
+
+        @media only screen and (max-device-width: 768px) {
+            .form-div1 {
+                margin-top: 5em;
+            }
+
+            .form-div2 {
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            label {
+                font-size: 2.5rem;
+            }
+
+            form.form-style {
+                font-size: 1.5rem;
+            }
+
+            .row {
+                margin: unset;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="register-page">
+        <h1 class="register-page-title">WELCOME TO RESCUE</h1>
+        <p class="register-page-text">Login through Registered Account</p>
+        <div class="row">
+            <div class="form-div1 col-lg-6 col-md-12 col-sm-12 col-12" data-aos="fade-down">
+                <img class="register-page-img" src="{% static 'Images/login.svg' %}" alt="Sign Up">
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="POST" class="form-style">
+                            {% csrf_token %}
+                            <div class="form-div2">
+                                <label for="id_username">Username</label>
+                                <input type="text" name="username" id="id_username" required>
+
+                                <label for="id_password1">Password</label>
+                                <input type="password" name="password" id="id_password1" required>
+                            </div>
+                            <div class="register-sign-in">
+                                <input type="submit" value="Log In">
+                                <h3 class="login-sign-in-text">New to Rescue? <a href="/register">Create an Account</a></h3>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('input[type="password"]').forEach(function (passwordField, index) {
+            var togglePassword = document.createElement('i');
+            togglePassword.className = "far fa-eye";
+            togglePassword.style = "margin-left: -32px; cursor: pointer;";
+            togglePassword.id = "togglePassword" + index;
+
+            passwordField.after(togglePassword);
+
+            togglePassword.addEventListener('click', function () {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
+        });
+    </script>
+    {% endblock %}
+</body>
+</html>
